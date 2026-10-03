@@ -37,17 +37,28 @@
 <div id="intro" aria-hidden="true">
   <div class="intro-half intro-top"></div>
   <div class="intro-half intro-bottom"></div>
-  <div class="intro-sheet">
-    <img src="/img/logo.png" alt="" width="379" height="379">
-    <span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span>
-    <div class="intro-bar"><i></i><i></i><i></i><i></i></div>
+  <div class="intro-stage">
+    <div class="intro-sheet">
+      <span class="reg-layer reg-c"></span><span class="reg-layer reg-m"></span>
+      <img src="/img/logo.png" alt="" width="760" height="760">
+      <span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span>
+      <div class="intro-bar"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="intro-cap">A imprimir…</p>
+  </div>
+  <p class="intro-skip">Clica para saltar</p>
+</div>
+<div id="curtain" aria-hidden="true">
+  <div class="curtain-sheet">
+    <span class="reg-layer reg-c"></span><span class="reg-layer reg-m"></span>
+    <img src="/img/logo-md.png" alt="" width="520" height="520">
+    <div class="curtain-bar"><i></i><i></i><i></i><i></i></div>
   </div>
 </div>
-<div id="curtain" aria-hidden="true"><div class="curtain-sheet"><img src="/img/logo.png" alt="" width="379" height="379"></div></div>
 
 <header class="site-header">
   <div class="wrap header-in">
-    <a class="brand" href="/" aria-label="Grafilândia – página inicial"><img src="/img/logo.png" alt="" width="379" height="379"><span class="brand-text"><strong>Grafilândia</strong><small>Artes Gráficas</small></span></a>
+    <a class="brand" href="/" aria-label="Grafilândia – página inicial"><img src="/img/logo-sm.png" alt="" width="240" height="240"><span class="brand-text"><strong>Grafilândia</strong><small>Artes Gráficas</small></span></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Abrir menu"><%- icon('menu') %></button>
     <nav id="siteNav" class="site-nav" aria-label="Principal">
       <% const items = [['inicio','/','Início'],['servicos','/servicos','Serviços'],['portefolio','/portefolio','Portefólio'],['orcamento','/orcamento','Orçamento'],['ficheiros','/enviar-ficheiros','Enviar ficheiros'],['sobre','/sobre','Sobre'],['contactos','/contactos','Contactos']]; %>

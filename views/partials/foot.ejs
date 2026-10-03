@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="footer-info">
-      <img class="footer-logo" src="/img/logo.png" alt="Grafilândia – Artes Gráficas" width="160" height="160">
+      <img class="footer-logo" src="/img/logo-md.png" alt="Grafilândia – Artes Gráficas" width="520" height="520">
       <address>
         <p class="fi"><%- icon('pin') %><span><%= s.morada %><br><a href="<%= directionsUrl %>" target="_blank" rel="noopener">Como chegar</a></span></p>
         <div class="fi"><%- icon('clock') %><span><% hoursLines.forEach(function (l) { %><%= l %><br><% }) %></span></div>
@@ -35,11 +35,11 @@
 
 <div id="bot" class="bot" data-phone="<%= s.telefone %>" data-email="<%= s.email %>" data-address="<%= s.morada %>" data-hours="<%= hoursLines.join('; ') %>" data-wa="<%= s.whatsapp %>">
   <button class="bot-toggle" type="button" aria-expanded="false" aria-controls="botPanel" aria-label="Abrir o assistente">
-    <img src="/img/logo.png" alt="" width="40" height="40"><span>Ajuda</span>
+    <img src="/img/logo-sm.png" alt="" width="42" height="42"><span>Ajuda</span>
   </button>
   <section class="bot-panel" id="botPanel" role="dialog" aria-label="Assistente da Grafilândia" hidden>
     <header class="bot-head">
-      <img src="/img/logo.png" alt="" width="40" height="40">
+      <img src="/img/logo-sm.png" alt="" width="42" height="42">
       <div><strong>Assistente Grafilândia</strong><small>Respostas automáticas</small></div>
       <button class="bot-close" type="button" aria-label="Fechar"><%- icon('close') %></button>
     </header>
