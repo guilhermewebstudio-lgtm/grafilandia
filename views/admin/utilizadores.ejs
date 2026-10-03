@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <h1>Utilizadores</h1>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Nome</th><th>E-mail</th><th>Papel</th><th>Criada em</th><th></th></tr></thead>
+      <tbody>
+      <% rows.forEach(function (r) { %>
+        <tr>
+          <td><%= r.name %></td>
+          <td><%= r.email %></td>
+          <td><%= r.role === 'admin' ? 'Administrador' : 'Cliente' %></td>
+          <td><%= fmtDate(r.created_at) %></td>
+          <td class="row-actions">
+            <% if (r.id !== user.id) { %>
+            <form method="post" action="/admin/utilizadores/<%= r.id %>/papel" data-confirm="Mudar o papel de <%= r.name %>?">
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <button class="btn btn-ghost btn-sm" type="submit"><%= r.role === 'admin' ? 'Tornar cliente' : 'Tornar admin' %></button>
+            </form>
+            <form method="post" action="/admin/utilizadores/<%= r.id %>/apagar" data-confirm="Apagar a conta de <%= r.name %>?">
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <button class="icon-btn" type="submit" aria-label="Apagar <%= r.name %>"><%- icon('trash') %></button>
+            </form>
+            <% } else { %><small>Tu</small><% } %>
+          </td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+<%- include('../partials/foot') %>

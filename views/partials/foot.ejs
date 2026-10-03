@@ -1,0 +1,61 @@
+<footer class="site-footer" id="onde-estamos">
+  <div class="wrap footer-grid">
+    <div class="footer-map">
+      <h2>Onde estamos</h2>
+      <p class="footer-lead">Passa pela loja para levantar as tuas impressões ou tirar dúvidas ao balcão.</p>
+      <div class="map-frame">
+        <iframe title="Mapa com a localização da Grafilândia" src="<%= mapSrc %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    <div class="footer-info">
+      <img class="footer-logo" src="/img/logo.png" alt="Grafilândia – Artes Gráficas" width="160" height="160">
+      <address>
+        <p class="fi"><%- icon('pin') %><span><%= s.morada %><br><a href="<%= directionsUrl %>" target="_blank" rel="noopener">Como chegar</a></span></p>
+        <div class="fi"><%- icon('clock') %><span><% hoursLines.forEach(function (l) { %><%= l %><br><% }) %></span></div>
+        <p class="fi"><%- icon('phone') %><span><a href="tel:+351<%= s.telefone.replace(/\D/g, '') %>"><%= s.telefone %></a></span></p>
+        <p class="fi"><%- icon('mail') %><span><a href="mailto:<%= s.email %>"><%= s.email %></a></span></p>
+      </address>
+      <div class="footer-actions">
+        <% if (s.whatsapp) { %><a class="btn btn-wa" href="<%= waLink('Olá! Gostava de pedir informações.') %>" target="_blank" rel="noopener"><%- icon('whatsapp') %>WhatsApp</a><% } %>
+        <% if (s.facebook) { %><a class="btn btn-light" href="<%= s.facebook %>" target="_blank" rel="noopener"><%- icon('facebook') %>Facebook</a><% } %>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div class="wrap footer-bar-in">
+      <span>© <%= new Date().getFullYear() %> Grafilândia – Artes Gráficas, Unipessoal, Lda.</span>
+      <span class="footer-links"><a href="/servicos">Serviços</a><a href="/orcamento">Orçamento</a><% if (!user) { %><a href="/entrar">Entrar</a><% } %></span>
+    </div>
+  </div>
+</footer>
+
+<% if (s.whatsapp) { %>
+<a class="wa-float" href="<%= waLink('Olá! Gostava de pedir informações.') %>" target="_blank" rel="noopener" aria-label="Falar connosco por WhatsApp"><%- icon('whatsapp') %></a>
+<% } %>
+
+<div id="bot" class="bot" data-phone="<%= s.telefone %>" data-email="<%= s.email %>" data-address="<%= s.morada %>" data-hours="<%= hoursLines.join('; ') %>" data-wa="<%= s.whatsapp %>">
+  <button class="bot-toggle" type="button" aria-expanded="false" aria-controls="botPanel" aria-label="Abrir o assistente">
+    <img src="/img/logo.png" alt="" width="40" height="40"><span>Ajuda</span>
+  </button>
+  <section class="bot-panel" id="botPanel" role="dialog" aria-label="Assistente da Grafilândia" hidden>
+    <header class="bot-head">
+      <img src="/img/logo.png" alt="" width="40" height="40">
+      <div><strong>Assistente Grafilândia</strong><small>Respostas automáticas</small></div>
+      <button class="bot-close" type="button" aria-label="Fechar"><%- icon('close') %></button>
+    </header>
+    <div class="bot-msgs" aria-live="polite"></div>
+    <div class="bot-chips"></div>
+    <form class="bot-form" autocomplete="off">
+      <input type="text" name="msg" placeholder="Escreve a tua dúvida…" aria-label="Mensagem" maxlength="200">
+      <button type="submit" aria-label="Enviar"><%- icon('send') %></button>
+    </form>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/js/main.js?v=<%= v %>"></script>
+<script src="/js/forms.js?v=<%= v %>"></script>
+<script src="/js/bot.js?v=<%= v %>"></script>
+</body>
+</html>

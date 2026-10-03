@@ -1,0 +1,38 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>A minha conta</h1>
+    <p class="lead">Olá, <%= user.name %>. Aqui acompanhas os teus pedidos.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <% if (requests.length) { %>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>Pedido</th><th>Resumo</th><th>Estado</th><th>Data</th><th></th></tr></thead>
+        <tbody>
+        <% requests.forEach(function (r) { %>
+          <tr>
+            <td>#<%= r.id %></td>
+            <td><%= r.type === 'ficheiro' ? 'Ficheiro' : 'Orçamento' %><% if (r.product) { %>: <%= r.product %><% } %><% if (r.quantity) { %> (<%= r.quantity %> un.)<% } %></td>
+            <td><span class="badge badge-<%= r.status %>"><%= STATUS[r.status] || r.status %></span></td>
+            <td><%= fmtDate(r.created_at) %></td>
+            <td><% if (r.media_id) { %><a href="/conta/ficheiro/<%= r.media_id %>" data-no-transition><%= r.file_name || 'Ficheiro' %></a><% } %></td>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } else { %>
+    <div class="note-box">
+      <h2>Ainda não tens pedidos</h2>
+      <p>Quando pedires um orçamento ou enviares um ficheiro com esta conta, aparece aqui com o estado atualizado.</p>
+      <div class="actions"><a class="btn btn-primary" href="/orcamento">Pedir orçamento</a><a class="btn btn-ghost" href="/enviar-ficheiros">Enviar ficheiro</a></div>
+    </div>
+    <% } %>
+  </div>
+</section>
+</main>
+<%- include('partials/foot') %>

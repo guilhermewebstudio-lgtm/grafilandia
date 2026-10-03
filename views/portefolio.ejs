@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>Portefólio</h1>
+    <p class="lead">Alguns dos trabalhos que já imprimimos para outras empresas.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <% if (works.length) { %>
+      <% if (categories.length > 1) { %>
+      <div class="filters" role="group" aria-label="Filtrar por categoria">
+        <button type="button" class="chip is-on" data-filter="*">Tudo</button>
+        <% categories.forEach(function (c) { %><button type="button" class="chip" data-filter="<%= c %>"><%= c %></button><% }) %>
+      </div>
+      <% } %>
+      <div class="pf-grid">
+        <% works.forEach(function (w) { %>
+        <figure class="pf-item rv" data-cat="<%= w.category %>">
+          <button type="button" class="pf-open" data-src="/media/<%= w.media_id %>" data-title="<%= w.title %>">
+            <img src="/media/<%= w.media_id %>" alt="<%= w.title %>" loading="lazy">
+          </button>
+          <figcaption><%= w.title %><% if (w.category) { %><small><%= w.category %></small><% } %></figcaption>
+        </figure>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="pf-grid">
+        <% ['Cartões de visita','Folhetos e flyers','Cartazes','Fardamento personalizado','Brindes promocionais','Vinil e autocolantes'].forEach(function (t, i) { %>
+        <figure class="pf-item ph ph-<%= (i % 4) + 1 %> rv"><div class="ph-box"><span class="ph-label">Foto do trabalho a adicionar</span></div><figcaption><%= t %></figcaption></figure>
+        <% }) %>
+      </div>
+      <p class="muted">As fotos reais dos trabalhos são adicionadas no painel de administração.</p>
+    <% } %>
+  </div>
+</section>
+<dialog id="lightbox" class="lightbox" aria-label="Imagem ampliada">
+  <button type="button" class="lb-close" aria-label="Fechar"><%- icon('close') %></button>
+  <img src="" alt="">
+  <p class="lb-title"></p>
+</dialog>
+</main>
+<%- include('partials/foot') %>

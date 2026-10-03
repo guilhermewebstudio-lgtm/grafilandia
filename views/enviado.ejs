@@ -1,0 +1,16 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="section">
+  <div class="wrap narrow done">
+    <span class="done-ico"><%- icon('check') %></span>
+    <h1>Pedido enviado</h1>
+    <% if (ref) { %><p class="lead">O teu pedido tem o número <strong>#<%= ref %></strong>.</p><% } %>
+    <p>Vamos analisá-lo e responder com o preço pelo meio que escolheste. Se for urgente, fala connosco por telefone: <a href="tel:+351<%= s.telefone.replace(/\D/g, '') %>"><%= s.telefone %></a>.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Voltar ao início</a>
+      <% if (user) { %><a class="btn btn-ghost" href="/conta">Ver os meus pedidos</a><% } else { %><a class="btn btn-ghost" href="/registar">Criar conta para acompanhar pedidos</a><% } %>
+    </div>
+  </div>
+</section>
+</main>
+<%- include('partials/foot') %>

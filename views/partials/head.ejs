@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= locals.title ? title + ' | Grafilândia' : 'Grafilândia – Artes Gráficas em Odivelas' %></title>
+<meta name="description" content="<%= locals.desc || 'Gráfica em Odivelas: cartões de visita, folhetos, cartazes, fardamento e brindes promocionais. Pede o teu orçamento ou envia o ficheiro online.' %>">
+<meta name="theme-color" content="#0E2F6E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="<%= locals.title ? title + ' | Grafilândia' : 'Grafilândia – Artes Gráficas em Odivelas' %>">
+<meta property="og:description" content="<%= locals.desc || 'Cartões de visita, folhetos, cartazes, fardamento e brindes promocionais.' %>">
+<meta property="og:image" content="<%= baseUrl %>/img/logo.png">
+<link rel="icon" href="/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=<%= v %>">
+<script src="/js/boot.js?v=<%= v %>"></script>
+<noscript><style>#intro,#curtain{display:none!important}.rv{opacity:1!important;transform:none!important}</style></noscript>
+<% if (locals.jsonld) { %>
+<script type="application/ld+json"><%- JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Grafilândia – Artes Gráficas, Unipessoal, Lda.',
+  description: s.descricao,
+  telephone: s.telefone,
+  email: s.email,
+  address: { '@type': 'PostalAddress', streetAddress: s.morada, addressCountry: 'PT' },
+  url: baseUrl,
+  image: baseUrl + '/img/logo.png'
+}).replace(/</g, '\\u003c') %></script>
+<% } %>
+</head>
+<body class="<%= locals.bodyClass || '' %>">
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+
+<div id="intro" aria-hidden="true">
+  <div class="intro-half intro-top"></div>
+  <div class="intro-half intro-bottom"></div>
+  <div class="intro-sheet">
+    <img src="/img/logo.png" alt="" width="379" height="379">
+    <span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span>
+    <div class="intro-bar"><i></i><i></i><i></i><i></i></div>
+  </div>
+</div>
+<div id="curtain" aria-hidden="true"><div class="curtain-sheet"><img src="/img/logo.png" alt="" width="379" height="379"></div></div>
+
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="brand" href="/" aria-label="Grafilândia – página inicial"><img src="/img/logo.png" alt="" width="379" height="379"><span class="brand-text"><strong>Grafilândia</strong><small>Artes Gráficas</small></span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Abrir menu"><%- icon('menu') %></button>
+    <nav id="siteNav" class="site-nav" aria-label="Principal">
+      <% const items = [['inicio','/','Início'],['servicos','/servicos','Serviços'],['portefolio','/portefolio','Portefólio'],['orcamento','/orcamento','Orçamento'],['ficheiros','/enviar-ficheiros','Enviar ficheiros'],['sobre','/sobre','Sobre'],['contactos','/contactos','Contactos']]; %>
+      <% items.forEach(function (it) { %><a href="<%= it[1] %>"<%- locals.nav === it[0] ? ' aria-current="page"' : '' %>><%= it[2] %></a><% }) %>
+      <span class="nav-sep"></span>
+      <% if (user) { %>
+        <a href="<%= user.role === 'admin' ? '/admin' : '/conta' %>" class="nav-user"><%- icon('user') %><%= user.name.split(' ')[0] %></a>
+        <% if (user.role === 'admin') { %><a href="/conta">Os meus pedidos</a><% } %>
+        <form action="/sair" method="post" class="nav-logout"><input type="hidden" name="_csrf" value="<%= csrf %>"><button type="submit">Sair</button></form>
+      <% } else { %>
+        <a href="/entrar" class="nav-login">Entrar</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
+<% if (flash) { %><div class="flash flash-<%= flash.type %>" role="status"><div class="wrap"><%= flash.text %></div></div><% } %>

@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <p><a class="link" href="/admin/pedidos">Voltar aos pedidos</a></p>
+  <h1>Pedido #<%= r.id %> <span class="badge badge-<%= r.status %>"><%= STATUS[r.status] || r.status %></span></h1>
+  <div class="detail-grid">
+    <div>
+      <dl class="detail">
+        <dt>Tipo</dt><dd><%= r.type === 'ficheiro' ? 'Envio de ficheiro' : 'Pedido de orçamento' %></dd>
+        <dt>Cliente</dt><dd><%= r.name %></dd>
+        <dt>E-mail</dt><dd><a href="mailto:<%= r.email %>"><%= r.email %></a></dd>
+        <dt>Telemóvel</dt><dd><%= r.phone || 'Não indicado' %></dd>
+        <dt>Prefere receber por</dt><dd><%= r.contact_pref === 'whatsapp' ? 'WhatsApp' : 'E-mail' %></dd>
+        <% if (r.product) { %><dt>Produto</dt><dd><%= r.product %></dd><% } %>
+        <% if (r.format) { %><dt>Formato</dt><dd><%= r.format %></dd><% } %>
+        <% if (r.paper) { %><dt>Papel / material</dt><dd><%= r.paper %></dd><% } %>
+        <% if (r.finish) { %><dt>Acabamento</dt><dd><%= r.finish %></dd><% } %>
+        <% if (r.quantity) { %><dt>Quantidade</dt><dd><%= r.quantity %></dd><% } %>
+        <% if (r.notes) { %><dt>Notas</dt><dd class="pre"><%= r.notes %></dd><% } %>
+        <% if (r.media_id) { %><dt>Ficheiro</dt><dd><a class="btn btn-ghost" href="/admin/ficheiro/<%= r.media_id %>" data-no-transition><%- icon('download') %><%= r.file_name || 'Descarregar' %></a></dd><% } %>
+        <dt>Recebido em</dt><dd><%= fmtDate(r.created_at) %></dd>
+      </dl>
+      <div class="actions">
+        <a class="btn btn-primary" href="<%= mailUrl %>"><%- icon('mail') %>Responder por e-mail</a>
+        <% if (waUrl) { %><a class="btn btn-wa" href="<%= waUrl %>" target="_blank" rel="noopener"><%- icon('whatsapp') %>Responder por WhatsApp</a><% } %>
+      </div>
+    </div>
+    <div>
+      <form class="form" method="post" action="/admin/pedidos/<%= r.id %>">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <div class="field"><label for="status">Estado</label>
+          <select id="status" name="status"><% STATUS_KEYS.forEach(function (k) { %><option value="<%= k %>"<%= r.status === k ? ' selected' : '' %>><%= STATUS[k] %></option><% }) %></select>
+        </div>
+        <div class="field"><label for="admin_notes">Notas internas <span class="opt">(o cliente não vê)</span></label><textarea id="admin_notes" name="admin_notes" rows="6" maxlength="3000"><%= r.admin_notes %></textarea></div>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+      </form>
+      <form method="post" action="/admin/pedidos/<%= r.id %>/apagar" data-confirm="Apagar este pedido e o ficheiro anexado?" class="danger-zone">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <button class="btn btn-danger" type="submit"><%- icon('trash') %>Apagar pedido</button>
+      </form>
+    </div>
+  </div>
+</div>
+</main>
+<%- include('../partials/foot') %>

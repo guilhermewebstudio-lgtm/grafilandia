@@ -1,0 +1,94 @@
+<%- include('partials/head') %>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 class="reg" data-text="Do ficheiro ao papel.">Do ficheiro ao papel.</h1>
+      <p class="lead">Cartões de visita, folhetos, cartazes, fardamento e brindes personalizados. Pede o orçamento online e recebemos o preço exato por e-mail ou WhatsApp.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/orcamento">Pedir orçamento</a>
+        <a class="btn btn-ghost" href="/enviar-ficheiros"><%- icon('upload') %>Enviar ficheiro</a>
+      </div>
+      <p class="hero-note"><%- icon('star') %>94% recomendam no Facebook (5 críticas)</p>
+    </div>
+    <div class="proof" aria-hidden="true">
+      <div class="proof-layer proof-c"></div>
+      <div class="proof-layer proof-m"></div>
+      <div class="proof-sheet"><img src="/img/logo.png" alt="" width="379" height="379"></div>
+      <span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span>
+      <div class="proof-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>O que imprimimos</h2>
+      <a class="link" href="/servicos">Ver todos os serviços</a>
+    </div>
+    <ul class="index">
+      <% services.forEach(function (sv) { %>
+      <li class="rv">
+        <a class="index-row" href="/orcamento?produto=<%= encodeURIComponent(sv.name) %>">
+          <span class="index-ico"><%- icon(sv.icon) %></span>
+          <span class="index-name"><%= sv.name %></span>
+          <span class="index-desc"><%= sv.description %></span>
+          <span class="index-go">Pedir orçamento<%- icon('arrow') %></span>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <h2>Do pedido ao levantamento</h2>
+    <ol class="steps">
+      <li class="rv"><span class="step-n">1</span><h3>Pedes o orçamento</h3><p>Escolhe o produto, a quantidade e o papel, ou envia logo o ficheiro.</p></li>
+      <li class="rv"><span class="step-n">2</span><h3>Recebes o preço</h3><p>Respondemos com o valor exato por e-mail ou WhatsApp.</p></li>
+      <li class="rv"><span class="step-n">3</span><h3>Produzimos</h3><p>Depois de aprovares, imprimimos o teu trabalho.</p></li>
+      <li class="rv"><span class="step-n">4</span><h3>Levantas na loja</h3><p>Passa pela nossa loja em Odivelas para levantar a encomenda.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Trabalhos que já imprimimos</h2>
+      <a class="link" href="/portefolio">Ver portefólio</a>
+    </div>
+    <% if (works.length) { %>
+    <div class="teaser">
+      <% works.forEach(function (w) { %>
+      <a class="teaser-item rv" href="/portefolio"><img src="/media/<%= w.media_id %>" alt="<%= w.title %>" loading="lazy"><span><%= w.title %></span></a>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <div class="teaser">
+      <% ['Cartões de visita','Folhetos e flyers','Cartazes','Fardamento personalizado'].forEach(function (t, i) { %>
+      <a class="teaser-item ph ph-<%= i + 1 %> rv" href="/portefolio"><span class="ph-label">Foto do trabalho a adicionar</span><span><%= t %></span></a>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap cta-in">
+    <div>
+      <h2>Já tens o ficheiro pronto?</h2>
+      <p>Envia o PDF ou a imagem e dizemos-te o preço.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-light" href="/enviar-ficheiros"><%- icon('upload') %>Enviar ficheiro</a>
+      <% if (s.whatsapp) { %><a class="btn btn-wa" href="<%= waLink('Olá! Tenho uma dúvida sobre um ficheiro para impressão.') %>" target="_blank" rel="noopener"><%- icon('whatsapp') %>Perguntar por WhatsApp</a><% } %>
+    </div>
+  </div>
+</section>
+
+</main>
+<%- include('partials/foot') %>

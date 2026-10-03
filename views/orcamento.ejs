@@ -1,0 +1,101 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>Pedir orçamento</h1>
+    <p class="lead">Escolhe o que queres imprimir. O preço exato segue por e-mail ou WhatsApp depois de vermos o pedido.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap calc-grid">
+    <form id="quoteForm" class="form" action="/orcamento" method="post" data-ajax novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <fieldset>
+        <legend>O que queres imprimir</legend>
+        <div class="field">
+          <label for="product">Produto</label>
+          <select id="product" name="product" required>
+            <option value="">Escolhe um produto</option>
+            <% options.produto.forEach(function (o) { %><option<%= old.product === o ? ' selected' : '' %>><%= o %></option><% }) %>
+          </select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="format">Formato</label>
+            <select id="format" name="format">
+              <option value="">Ainda não sei</option>
+              <% options.formato.forEach(function (o) { %><option<%= old.format === o ? ' selected' : '' %>><%= o %></option><% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="paper">Papel / material</label>
+            <select id="paper" name="paper">
+              <option value="">Aceito sugestão</option>
+              <% options.papel.forEach(function (o) { %><option<%= old.paper === o ? ' selected' : '' %>><%= o %></option><% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="finish">Acabamento</label>
+            <select id="finish" name="finish">
+              <option value="">Sem preferência</option>
+              <% options.acabamento.forEach(function (o) { %><option<%= old.finish === o ? ' selected' : '' %>><%= o %></option><% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quantity">Quantidade</label>
+            <input id="quantity" name="quantity" type="number" inputmode="numeric" min="1" max="1000000" required value="<%= old.quantity || '' %>">
+            <div class="qty-chips" aria-label="Quantidades frequentes">
+              <% [50, 100, 250, 500, 1000].forEach(function (n) { %><button type="button" class="chip" data-qty="<%= n %>"><%= n %></button><% }) %>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Notas <span class="opt">(opcional)</span></label>
+          <textarea id="notes" name="notes" rows="3" maxlength="2000" placeholder="Cores, prazo pretendido, se já tens o ficheiro…"><%= old.notes || '' %></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Os teus dados</legend>
+        <div class="row2">
+          <div class="field">
+            <label for="name">Nome</label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="100" value="<%= old.name || '' %>">
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required maxlength="150" value="<%= old.email || '' %>">
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Telemóvel <span class="opt">(obrigatório para resposta por WhatsApp)</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="30" value="<%= old.phone || '' %>">
+        </div>
+        <div class="field">
+          <span class="label">Como preferes receber o preço?</span>
+          <div class="radios">
+            <label><input type="radio" name="contact_pref" value="email"<%= old.contact_pref !== 'whatsapp' ? ' checked' : '' %>> E-mail</label>
+            <label><input type="radio" name="contact_pref" value="whatsapp"<%= old.contact_pref === 'whatsapp' ? ' checked' : '' %>> WhatsApp</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <p class="form-error" data-error role="alert" hidden></p>
+      <button class="btn btn-primary btn-lg" type="submit">Enviar pedido</button>
+    </form>
+
+    <aside class="summary" aria-label="Resumo do pedido">
+      <h2>O teu pedido</h2>
+      <dl id="quoteSummary" class="summary-list" aria-live="polite"></dl>
+      <p class="summary-empty" id="summaryEmpty">Escolhe um produto para ver o resumo aqui.</p>
+      <p class="muted">Não mostramos preços automáticos: cada trabalho é visto pela equipa e respondemos com o valor exato.</p>
+      <% if (s.whatsapp) { %>
+      <a id="waQuote" class="btn btn-wa" href="<%= waLink('Olá! Gostava de pedir um orçamento.') %>" data-wa="<%= s.whatsapp %>" target="_blank" rel="noopener"><%- icon('whatsapp') %>Enviar este resumo por WhatsApp</a>
+      <% } %>
+    </aside>
+  </div>
+</section>
+</main>
+<%- include('partials/foot') %>

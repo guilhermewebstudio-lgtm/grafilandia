@@ -1,0 +1,23 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap narrow-left">
+  <h1>Definições</h1>
+  <form class="form" method="post" action="/admin/definicoes">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="field"><label for="descricao">Apresentação da empresa</label><textarea id="descricao" name="descricao" rows="2" maxlength="400"><%= s.descricao %></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="telefone">Telefone</label><input id="telefone" name="telefone" value="<%= s.telefone %>" maxlength="40"></div>
+      <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" value="<%= s.email %>" maxlength="150"></div>
+    </div>
+    <div class="field"><label for="morada">Morada</label><input id="morada" name="morada" value="<%= s.morada %>" maxlength="200"></div>
+    <div class="field"><label for="horario">Horário <span class="opt">(uma linha por período)</span></label><textarea id="horario" name="horario" rows="4" maxlength="600"><%= s.horario %></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="whatsapp">Número de WhatsApp <span class="opt">(com indicativo, ex.: 351912345678)</span></label><input id="whatsapp" name="whatsapp" value="<%= s.whatsapp %>" inputmode="numeric" maxlength="20"></div>
+      <div class="field"><label for="facebook">Link do Facebook <span class="opt">(opcional)</span></label><input id="facebook" name="facebook" value="<%= s.facebook %>" placeholder="https://www.facebook.com/…" maxlength="200"></div>
+    </div>
+    <button class="btn btn-primary" type="submit">Guardar definições</button>
+  </form>
+</div>
+</main>
+<%- include('../partials/foot') %>

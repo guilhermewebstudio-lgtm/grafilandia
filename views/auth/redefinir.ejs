@@ -1,0 +1,15 @@
+<%- include('../partials/head') %>
+<main id="main">
+<section class="section">
+  <div class="wrap auth-wrap">
+    <form class="form auth-card" action="/redefinir/<%= token %>" method="post">
+      <h1>Nova palavra-passe</h1>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="field"><label for="password">Nova palavra-passe <span class="opt">(mínimo 8 caracteres)</span></label><input id="password" name="password" type="password" autocomplete="new-password" required minlength="8"></div>
+      <div class="field"><label for="confirm">Repetir palavra-passe</label><input id="confirm" name="confirm" type="password" autocomplete="new-password" required minlength="8"></div>
+      <button class="btn btn-primary btn-block" type="submit">Guardar palavra-passe</button>
+    </form>
+  </div>
+</section>
+</main>
+<%- include('../partials/foot') %>

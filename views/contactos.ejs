@@ -1,0 +1,27 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>Contactos</h1>
+    <p class="lead">Fala connosco ou passa pela loja. O mapa e o horário estão também no fundo de todas as páginas.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap contact-grid">
+    <div class="contact-list">
+      <p class="fi"><%- icon('pin') %><span><strong>Morada</strong><br><%= s.morada %><br><a href="<%= directionsUrl %>" target="_blank" rel="noopener">Como chegar</a></span></p>
+      <div class="fi"><%- icon('clock') %><span><strong>Horário</strong><br><% hoursLines.forEach(function (l) { %><%= l %><br><% }) %></span></div>
+      <p class="fi"><%- icon('phone') %><span><strong>Telefone</strong><br><a href="tel:+351<%= s.telefone.replace(/\D/g, '') %>"><%= s.telefone %></a></span></p>
+      <p class="fi"><%- icon('mail') %><span><strong>E-mail</strong><br><a href="mailto:<%= s.email %>"><%= s.email %></a></span></p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/orcamento">Pedir orçamento</a>
+        <% if (s.whatsapp) { %><a class="btn btn-wa" href="<%= waLink('Olá! Gostava de pedir informações.') %>" target="_blank" rel="noopener"><%- icon('whatsapp') %>WhatsApp</a><% } %>
+      </div>
+    </div>
+    <div class="map-frame map-big">
+      <iframe title="Mapa com a localização da Grafilândia" src="<%= mapSrc %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+<%- include('partials/foot') %>

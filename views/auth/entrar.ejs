@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+<main id="main">
+<section class="section">
+  <div class="wrap auth-wrap">
+    <form class="form auth-card" action="/entrar" method="post">
+      <h1>Entrar</h1>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <input type="hidden" name="next" value="<%= next %>">
+      <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="password">Palavra-passe</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+      <p class="auth-links"><a href="/recuperar">Esqueci-me da palavra-passe</a><a href="/registar">Criar conta</a></p>
+    </form>
+  </div>
+</section>
+</main>
+<%- include('../partials/foot') %>

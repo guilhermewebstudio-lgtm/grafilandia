@@ -1,0 +1,76 @@
+<%- include('partials/head') %>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>Enviar ficheiros</h1>
+    <p class="lead">Anexa o PDF ou a imagem que queres imprimir e diz-nos o que precisas. Respondemos com o preço por e-mail ou WhatsApp.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    <form id="fileForm" class="form" action="/enviar-ficheiros" method="post" enctype="multipart/form-data" data-ajax data-max-mb="<%= maxMb %>" data-exts="<%= exts.join(',') %>" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <fieldset>
+        <legend>O ficheiro</legend>
+        <div class="field">
+          <label class="drop" for="ficheiro" id="drop">
+            <%- icon('upload') %>
+            <strong>Arrasta o ficheiro para aqui</strong>
+            <span>ou clica para escolher (máx. <%= maxMb %> MB)</span>
+            <span class="drop-name" id="dropName"></span>
+          </label>
+          <input id="ficheiro" name="ficheiro" type="file" accept=".<%= exts.join(',.') %>" required class="visually-hidden">
+          <p class="hint">Formatos: <%= exts.join(', ').toUpperCase() %>. PDF com 300 dpi, sangria de 3 mm e cores em CMYK dá os melhores resultados.</p>
+          <div class="progress" id="progress" hidden><div class="progress-bar" id="progressBar"></div></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="product">Tipo de trabalho</label>
+            <select id="product" name="product">
+              <option value="">Ainda não sei</option>
+              <% options.produto.forEach(function (o) { %><option<%= old.product === o ? ' selected' : '' %>><%= o %></option><% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quantity">Quantidade <span class="opt">(opcional)</span></label>
+            <input id="quantity" name="quantity" type="number" inputmode="numeric" min="1" max="1000000" value="<%= old.quantity || '' %>">
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Notas <span class="opt">(opcional)</span></label>
+          <textarea id="notes" name="notes" rows="3" maxlength="2000" placeholder="Formato, papel, acabamento, prazo…"><%= old.notes || '' %></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Os teus dados</legend>
+        <div class="row2">
+          <div class="field">
+            <label for="name">Nome</label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="100" value="<%= old.name || '' %>">
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required maxlength="150" value="<%= old.email || '' %>">
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Telemóvel <span class="opt">(obrigatório para resposta por WhatsApp)</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="30" value="<%= old.phone || '' %>">
+        </div>
+        <div class="field">
+          <span class="label">Como preferes receber o preço?</span>
+          <div class="radios">
+            <label><input type="radio" name="contact_pref" value="email"<%= old.contact_pref !== 'whatsapp' ? ' checked' : '' %>> E-mail</label>
+            <label><input type="radio" name="contact_pref" value="whatsapp"<%= old.contact_pref === 'whatsapp' ? ' checked' : '' %>> WhatsApp</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <p class="form-error" data-error role="alert" hidden></p>
+      <button class="btn btn-primary btn-lg" type="submit">Enviar ficheiro</button>
+    </form>
+  </div>
+</section>
+</main>
+<%- include('partials/foot') %>

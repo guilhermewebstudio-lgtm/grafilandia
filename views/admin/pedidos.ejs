@@ -1,0 +1,33 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <h1>Pedidos</h1>
+  <form class="filters-bar" method="get" action="/admin/pedidos">
+    <input type="search" name="q" value="<%= search %>" placeholder="Pesquisar nome, e-mail, produto ou #" aria-label="Pesquisar">
+    <select name="tipo" aria-label="Tipo"><option value="">Todos os tipos</option><option value="orcamento"<%= tipo === 'orcamento' ? ' selected' : '' %>>Orçamentos</option><option value="ficheiro"<%= tipo === 'ficheiro' ? ' selected' : '' %>>Ficheiros</option></select>
+    <select name="estado" aria-label="Estado"><option value="">Todos os estados</option><% Object.keys(STATUS).forEach(function (k) { %><option value="<%= k %>"<%= estado === k ? ' selected' : '' %>><%= STATUS[k] %></option><% }) %></select>
+    <button class="btn btn-primary" type="submit">Filtrar</button>
+  </form>
+  <% if (rows.length) { %>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>#</th><th>Cliente</th><th>Pedido</th><th>Quant.</th><th>Estado</th><th>Data</th></tr></thead>
+      <tbody>
+      <% rows.forEach(function (r) { %>
+        <tr>
+          <td><a href="/admin/pedidos/<%= r.id %>">#<%= r.id %></a></td>
+          <td><%= r.name %><br><small><%= r.email %></small></td>
+          <td><%= r.type === 'ficheiro' ? 'Ficheiro' : 'Orçamento' %><% if (r.product) { %>: <%= r.product %><% } %><% if (r.file_name) { %><br><small><%= r.file_name %></small><% } %></td>
+          <td><%= r.quantity || '' %></td>
+          <td><span class="badge badge-<%= r.status %>"><%= STATUS[r.status] || r.status %></span></td>
+          <td><%= fmtDate(r.created_at) %></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %><p class="muted">Nenhum pedido encontrado.</p><% } %>
+</div>
+</main>
+<%- include('../partials/foot') %>

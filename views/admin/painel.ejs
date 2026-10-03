@@ -1,0 +1,36 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <h1>Resumo</h1>
+  <% warnings.forEach(function (w) { %>
+  <div class="warn"><%= w.text %><% if (w.href) { %> <a href="<%= w.href %>">Abrir</a><% } %></div>
+  <% }) %>
+  <div class="stats">
+    <div class="stat"><strong><%= totals.quotes %></strong><span>pedidos de orçamento</span></div>
+    <div class="stat"><strong><%= totals.files %></strong><span>ficheiros recebidos</span></div>
+    <div class="stat"><strong><%= byStatus.novo || 0 %></strong><span>por tratar</span></div>
+    <div class="stat"><strong><%= users %></strong><span>contas de clientes</span></div>
+  </div>
+  <div class="sec-head"><h2>Últimos pedidos</h2><a class="link" href="/admin/pedidos">Ver todos</a></div>
+  <% if (recent.length) { %>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>#</th><th>Cliente</th><th>Pedido</th><th>Estado</th><th>Data</th></tr></thead>
+      <tbody>
+      <% recent.forEach(function (r) { %>
+        <tr>
+          <td><a href="/admin/pedidos/<%= r.id %>">#<%= r.id %></a></td>
+          <td><%= r.name %></td>
+          <td><%= r.type === 'ficheiro' ? 'Ficheiro' : 'Orçamento' %><% if (r.product) { %>: <%= r.product %><% } %></td>
+          <td><span class="badge badge-<%= r.status %>"><%= STATUS[r.status] || r.status %></span></td>
+          <td><%= fmtDate(r.created_at) %></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %><p class="muted">Ainda não há pedidos.</p><% } %>
+</div>
+</main>
+<%- include('../partials/foot') %>

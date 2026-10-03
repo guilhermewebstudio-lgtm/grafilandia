@@ -1,0 +1,10 @@
+<section class="admin-bar">
+  <div class="wrap admin-bar-in">
+    <strong>Painel</strong>
+    <nav aria-label="Administração">
+      <% [['inicio','/admin','Resumo'],['pedidos','/admin/pedidos','Pedidos'],['servicos','/admin/servicos','Serviços'],['portfolio','/admin/portfolio','Portefólio'],['opcoes','/admin/opcoes','Opções do orçamento'],['utilizadores','/admin/utilizadores','Utilizadores'],['definicoes','/admin/definicoes','Definições']].forEach(function (it) { %>
+      <a href="<%= it[1] %>"<%- adminNav === it[0] ? ' aria-current="page"' : '' %>><%= it[2] %></a>
+      <% }) %>
+    </nav>
+  </div>
+</section>

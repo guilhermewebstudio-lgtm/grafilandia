@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<main id="main">
+<section class="section">
+  <div class="wrap auth-wrap">
+    <form class="form auth-card" action="/recuperar" method="post">
+      <h1>Recuperar palavra-passe</h1>
+      <p class="muted">Indica o e-mail da tua conta e enviamos um link para escolheres uma nova palavra-passe.</p>
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      <button class="btn btn-primary btn-block" type="submit">Enviar link</button>
+      <p class="auth-links"><a href="/entrar">Voltar a entrar</a></p>
+    </form>
+  </div>
+</section>
+</main>
+<%- include('../partials/foot') %>

@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <h1>Opções do orçamento</h1>
+  <p class="muted">São as opções que o cliente escolhe no formulário de orçamento. As iniciais são exemplos: remove o que não fazem e acrescenta o que fazem.</p>
+  <div class="opt-grid">
+    <% Object.keys(OPTION_KINDS).forEach(function (k) { %>
+    <section class="opt-box">
+      <h2><%= OPTION_KINDS[k] %></h2>
+      <ul class="opt-list">
+        <% groups[k].forEach(function (o) { %>
+        <li><span><%= o.label %></span>
+          <form method="post" action="/admin/opcoes/<%= o.id %>/apagar" data-confirm="Remover “<%= o.label %>”?">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+            <button class="icon-btn" type="submit" aria-label="Remover <%= o.label %>"><%- icon('trash') %></button>
+          </form>
+        </li>
+        <% }) %>
+      </ul>
+      <form class="opt-add" method="post" action="/admin/opcoes">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <input type="hidden" name="kind" value="<%= k %>">
+        <input name="label" placeholder="Nova opção" maxlength="100" required aria-label="Nova opção em <%= OPTION_KINDS[k] %>">
+        <button class="btn btn-primary btn-sm" type="submit">Adicionar</button>
+      </form>
+    </section>
+    <% }) %>
+  </div>
+</div>
+</main>
+<%- include('../partials/foot') %>

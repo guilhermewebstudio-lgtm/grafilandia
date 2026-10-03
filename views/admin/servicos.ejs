@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+<main id="main" class="admin">
+<div class="wrap">
+  <h1>Serviços</h1>
+  <p class="muted">Estes serviços aparecem na página inicial e em Serviços. Os textos iniciais são exemplos: edita-os ao teu gosto.</p>
+
+  <% rows.forEach(function (r) { %>
+  <form class="card-form" method="post" action="/admin/servicos/<%= r.id %>" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="row3">
+      <div class="field"><label>Nome</label><input name="name" value="<%= r.name %>" required maxlength="100"></div>
+      <div class="field"><label>Ícone</label>
+        <select name="icon"><% ICON_NAMES.forEach(function (n) { %><option<%= r.icon === n ? ' selected' : '' %>><%= n %></option><% }) %></select>
+      </div>
+      <div class="field"><label>Ordem</label><input name="sort_order" type="number" value="<%= r.sort_order %>"></div>
+    </div>
+    <div class="field"><label>Descrição</label><input name="description" value="<%= r.description %>" maxlength="400"></div>
+    <div class="row3">
+      <div class="field"><label>Imagem <span class="opt">(opcional)</span></label><input type="file" name="imagem" accept="image/jpeg,image/png,image/webp,image/gif"><% if (r.media_id) { %><label class="check"><input type="checkbox" name="remove_image"> Remover imagem atual</label><% } %></div>
+      <div class="field"><label class="check"><input type="checkbox" name="active"<%= r.active ? ' checked' : '' %>> Visível no site</label></div>
+      <div class="field actions-end">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+      </div>
+    </div>
+  </form>
+  <form method="post" action="/admin/servicos/<%= r.id %>/apagar" data-confirm="Apagar o serviço “<%= r.name %>”?" class="inline-delete">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <button class="btn btn-danger btn-sm" type="submit"><%- icon('trash') %>Apagar “<%= r.name %>”</button>
+  </form>
+  <% }) %>
+
+  <h2>Adicionar serviço</h2>
+  <form class="card-form" method="post" action="/admin/servicos" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="row3">
+      <div class="field"><label>Nome</label><input name="name" required maxlength="100"></div>
+      <div class="field"><label>Ícone</label><select name="icon"><% ICON_NAMES.forEach(function (n) { %><option><%= n %></option><% }) %></select></div>
+      <div class="field"><label>Imagem <span class="opt">(opcional)</span></label><input type="file" name="imagem" accept="image/jpeg,image/png,image/webp,image/gif"></div>
+    </div>
+    <div class="field"><label>Descrição</label><input name="description" maxlength="400"></div>
+    <button class="btn btn-primary" type="submit">Adicionar</button>
+  </form>
+</div>
+</main>
+<%- include('../partials/foot') %>
