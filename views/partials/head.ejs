@@ -9,8 +9,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="<%= locals.title ? title + ' | Grafilândia' : 'Grafilândia – Artes Gráficas em Odivelas' %>">
 <meta property="og:description" content="<%= locals.desc || 'Cartões de visita, folhetos, cartazes, fardamento e brindes promocionais.' %>">
-<meta property="og:image" content="<%= baseUrl %>/img/logo.png">
-<link rel="icon" href="/img/favicon.png">
+<meta property="og:image" content="<%= baseUrl %>/img/logo.png?v=<%= v %>">
+<link rel="icon" href="/img/favicon.png?v=<%= v %>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
   email: s.email,
   address: { '@type': 'PostalAddress', streetAddress: s.morada, addressCountry: 'PT' },
   url: baseUrl,
-  image: baseUrl + '/img/logo.png'
+  image: baseUrl + '/img/logo.png?v=' + v
 }).replace(/</g, '\\u003c') %></script>
 <% } %>
 </head>
@@ -40,7 +40,7 @@
   <div class="intro-stage">
     <div class="intro-sheet">
       <span class="reg-layer reg-c"></span><span class="reg-layer reg-m"></span>
-      <img src="/img/logo.png" alt="" width="760" height="760">
+      <img src="/img/logo.png?v=<%= v %>" alt="" width="760" height="760">
       <span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span>
       <div class="intro-bar"><i></i><i></i><i></i><i></i></div>
     </div>
@@ -51,14 +51,14 @@
 <div id="curtain" aria-hidden="true">
   <div class="curtain-sheet">
     <span class="reg-layer reg-c"></span><span class="reg-layer reg-m"></span>
-    <img src="/img/logo-md.png" alt="" width="520" height="520">
+    <img src="/img/logo-md.png?v=<%= v %>" alt="" width="520" height="520">
     <div class="curtain-bar"><i></i><i></i><i></i><i></i></div>
   </div>
 </div>
 
 <header class="site-header">
   <div class="wrap header-in">
-    <a class="brand" href="/" aria-label="Grafilândia – página inicial"><img src="/img/logo-sm.png" alt="" width="240" height="240"><span class="brand-text"><strong>Grafilândia</strong><small>Artes Gráficas</small></span></a>
+    <a class="brand" href="/" aria-label="Grafilândia – página inicial"><img src="/img/logo-sm.png?v=<%= v %>" alt="" width="240" height="240"><span class="brand-text"><strong>Grafilândia</strong><small>Artes Gráficas</small></span></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Abrir menu"><%- icon('menu') %></button>
     <nav id="siteNav" class="site-nav" aria-label="Principal">
       <% const items = [['inicio','/','Início'],['servicos','/servicos','Serviços'],['portefolio','/portefolio','Portefólio'],['orcamento','/orcamento','Orçamento'],['ficheiros','/enviar-ficheiros','Enviar ficheiros'],['sobre','/sobre','Sobre'],['contactos','/contactos','Contactos']]; %>

@@ -46,7 +46,7 @@ app.use(
 // Keepalive para o cron-job.org (antes da sessão, para não criar sessões à toa).
 app.get('/healthz', (req, res) => res.type('text').send('ok'));
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: isProd ? '7d' : 0 }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: isProd ? '1d' : 0 }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 
 if (!process.env.SESSION_SECRET) {
