@@ -27,11 +27,16 @@
       </div>
     <% } else { %>
       <div class="pf-grid">
-        <% ['Cartões de visita','Folhetos e flyers','Cartazes','Fardamento personalizado','Brindes promocionais','Vinil e autocolantes'].forEach(function (t, i) { %>
-        <figure class="pf-item ph ph-<%= (i % 4) + 1 %> rv"><div class="ph-box"><span class="ph-label">Foto do trabalho a adicionar</span></div><figcaption><%= t %></figcaption></figure>
+        <% examples.forEach(function (w) { %>
+        <figure class="pf-item rv">
+          <button type="button" class="pf-open" data-src="<%= w.src %>?v=<%= v %>" data-title="<%= w.title %> (exemplo ilustrativo)">
+            <img src="<%= w.src %>?v=<%= v %>" alt="<%= w.title %> (exemplo ilustrativo)" loading="lazy">
+          </button>
+          <figcaption><%= w.title %><small>Exemplo ilustrativo</small></figcaption>
+        </figure>
         <% }) %>
       </div>
-      <p class="muted">As fotos reais dos trabalhos são adicionadas no painel de administração.</p>
+      <p class="muted">Imagens ilustrativas. As fotos reais dos nossos trabalhos entram aqui assim que forem adicionadas.</p>
     <% } %>
   </div>
 </section>

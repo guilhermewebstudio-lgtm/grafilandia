@@ -79,8 +79,8 @@
     </div>
     <% } else { %>
     <div class="teaser">
-      <% ['Cartões de visita','Folhetos e flyers','Cartazes','Fardamento personalizado'].forEach(function (t, i) { %>
-      <a class="teaser-item ph ph-<%= i + 1 %> rv" href="/portefolio"><span class="ph-label">Foto do trabalho a adicionar</span><span><%= t %></span></a>
+      <% examples.forEach(function (w) { %>
+      <a class="teaser-item rv" href="/portefolio"><img src="<%= w.src %>?v=<%= v %>" alt="<%= w.title %> (exemplo ilustrativo)" loading="lazy"><span><%= w.title %> <em class="ex-tag">Exemplo</em></span></a>
       <% }) %>
     </div>
     <% } %>

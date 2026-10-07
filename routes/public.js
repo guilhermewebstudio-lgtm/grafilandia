@@ -9,6 +9,16 @@ const { notifyNewRequest } = require('../mail');
 
 const router = express.Router();
 
+// Exemplos ilustrativos, mostrados só enquanto não há fotos reais no portefólio.
+const EXAMPLES = [
+  { title: 'Cartões de visita', category: 'Cartões de visita', file: 'cartoes.jpg' },
+  { title: 'Folhetos e flyers', category: 'Folhetos', file: 'folhetos.jpg' },
+  { title: 'Cartazes', category: 'Cartazes', file: 'cartaz.jpg' },
+  { title: 'Fardamento personalizado', category: 'Fardamento', file: 'fardamento.jpg' },
+  { title: 'Brindes promocionais', category: 'Brindes', file: 'brindes.jpg' },
+  { title: 'Vinil e autocolantes', category: 'Autocolantes', file: 'autocolantes.jpg' },
+].map((e) => ({ ...e, src: '/img/exemplos/' + e.file }));
+
 const formLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 20,
@@ -74,7 +84,7 @@ router.get(
   ah(async (req, res) => {
     const services = (await q('SELECT * FROM services WHERE active ORDER BY sort_order, id')).rows;
     const works = (await q('SELECT p.*, m.id AS mid FROM portfolio p JOIN media m ON m.id = p.media_id ORDER BY p.sort_order, p.id DESC LIMIT 4')).rows;
-    res.render('home', { title: '', nav: 'inicio', services, works, jsonld: true });
+    res.render('home', { title: '', nav: 'inicio', services, works, examples: EXAMPLES.slice(0, 4), jsonld: true });
   })
 );
 
@@ -91,7 +101,7 @@ router.get(
   ah(async (req, res) => {
     const works = (await q('SELECT * FROM portfolio ORDER BY sort_order, id DESC')).rows;
     const categories = [...new Set(works.map((w) => w.category).filter(Boolean))];
-    res.render('portefolio', { title: 'Portefólio', nav: 'portefolio', desc: 'Alguns dos trabalhos que já imprimimos.', works, categories });
+    res.render('portefolio', { title: 'Portefólio', nav: 'portefolio', desc: 'Alguns dos trabalhos que já imprimimos.', works, categories, examples: EXAMPLES });
   })
 );
 
