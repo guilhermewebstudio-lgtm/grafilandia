@@ -53,7 +53,6 @@ router.get(
     const warnings = [];
     if (/confirmar/i.test(res.locals.s.horario)) warnings.push({ text: 'O horário ainda é um exemplo. Confirma-o e edita em Definições.', href: '/admin/definicoes' });
     if (!res.locals.s.whatsapp) warnings.push({ text: 'Falta o número de WhatsApp: o botão de WhatsApp está escondido.', href: '/admin/definicoes' });
-    if (!process.env.BREVO_API_KEY) warnings.push({ text: 'Os emails estão desativados (falta BREVO_API_KEY). Os pedidos ficam guardados aqui no painel.', href: '' });
 
     res.render('admin/painel', { title: 'Painel', byStatus, totals, users, recent, warnings });
   })
